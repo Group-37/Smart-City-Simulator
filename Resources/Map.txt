@@ -1,24 +1,13 @@
- h h h h h h h h h h h h h
- r r r r r r r r r r r r r r        s          g
- h h h h h h h h h h h h h r        r 	       r
-                           r r r r  r r r r r r r r
-			   r
- f f f f f f f f f f f f   r
- r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r p
-                           r       r
-                           r     a a a
-                           r     a a a
-                           r
-                           r
-                           h
-				
-
-r = road
-h = house
-a = apartments
-f = factory
-p = power plant
-s = school
-g = Gardai
-h = hospital
-
+h,h,h,h,h,h,h,h,h,h,h,h,h
+r,r,r,r,r,r,r,r,r,r,r,r,r,r, , , , ,s, , , , , ,g
+h,h,h,h,h,h,h,h,h,h,h,h,h,r, , , , ,r, , , , , ,r
+ , , , , , , , , , , , , ,r,r,r,r,r,r,r,r,r,r,r,r
+ , , , , , , , , , , , , , , , , ,r
+f,f,f,f,f,f,f,f,f,f,f,f, , , , , ,r
+r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,p
+ , , , , , , , , , , , , , , , , ,r, , , , ,r
+ , , , , , , , , , , , , , , , , ,r, , , ,a,a,a
+ , , , , , , , , , , , , , , , , ,r, , , ,a,a,a
+ , , , , , , , , , , , , , , , , ,r
+ , , , , , , , , , , , , , , , , ,r
+ , , , , , , , , , , , , , , , , ,h
