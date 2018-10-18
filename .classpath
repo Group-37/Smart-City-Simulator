@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="Main_Controller/|City_Parts/|UI/|Resource_Management/|Database_Controller/" kind="src" path=""/>
+	<classpathentry kind="src" path="City_Parts"/>
+	<classpathentry kind="src" path="Database_Controller"/>
+	<classpathentry kind="src" path="Main_Controller"/>
+	<classpathentry kind="src" path="Resource_Management"/>
+	<classpathentry kind="src" path="UI"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
