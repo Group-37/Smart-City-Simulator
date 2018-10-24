@@ -2,7 +2,7 @@ package Database_Controller;
 import City_Parts.*;
 import java.io.File;
 import java.util.Scanner;
-import Resources.*;
+
 public class CRUD {
 	
 	private Scanner x;
@@ -12,7 +12,7 @@ public class CRUD {
 	{
 		try
 		{
-			x = new Scanner(new File("D:/Program Files (x86)/eclipse-workspace/SmartCity/src/Resources/Map.txt"));
+			x = new Scanner(new File("C:\\Users\\Michael\\Desktop\\Smart-City-Simulator-master\\src\\Resources\\Map.txt"));
 		}
 		catch(Exception e)
 		{
