@@ -96,61 +96,6 @@ public class CSFile implements IFile {
                     if (j < (write[i].length - 1))
                         fw.write(write[i][j] + delimiter);
                     else {
-                        System.out.println("write[i][j] = " + write[i][j]);
-                        fw.write(write[i][j]);
-                    }
-                }
-                fw.write("\r\n");
-            }
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "File not found!");
-        }
-        finally
-        {
-            try {
-                fw.close();
-            } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Could not close FileWriter");
-            }
-        }
-    }
-    
-    @Override
-    public void writeItemsOnSale(String [][] write) {
-        FileWriter fw = null;
-        try {
-            get(writeFileName);
-            String[][] oldWrite = read();
-            System.out.println("oldWrite length = " + oldWrite.length);
-            fw = new FileWriter(writeFileName, canAppend);
-            int largestColumn = 0;
-            for (int i = 0; i < write.length;i++)
-            {
-                int numColumn = write[i].length;
-                if (numColumn > largestColumn)
-                    largestColumn = numColumn;
-            }
-            for (int i = 0; i < oldWrite.length; i++)
-            {
-                for (int j = 0; j < oldWrite[i].length; j++)
-                {
-                    if (j < (oldWrite[i].length - 1))
-                        fw.write(oldWrite[i][j] + delimiter);
-                    else {
-                        System.out.println("write[i][j] = " + oldWrite[i][j]);
-                        fw.write(oldWrite[i][j]);
-                    }
-                }
-                fw.write("\r\n");
-            }
-            for (int i = 0; i < write.length; i++)
-            {
-                for (int j = 0; j < write[i].length; j++)
-                {
-                    if (j < (write[i].length - 1))
-                        fw.write(write[i][j] + delimiter);
-                    else {
-                        System.out.println("write[i][j] = " + write[i][j]);
                         fw.write(write[i][j]);
                     }
                 }
