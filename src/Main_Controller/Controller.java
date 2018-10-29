@@ -1,20 +1,41 @@
 package Main_Controller;
 import Database_Controller.*;
+
+import java.util.ArrayList;
+
 import City_Parts.*;
 public class Controller {
 	
 	public static void main(String [] args)
 	{
-		Structure[][] structures;
-		CRUD c = new CRUD();
-		structures = c.readFile();
+		
+		 CRUD crud = new CRUD();
+    	String[][] cityArray = new String[0][0];
+    	cityArray = crud.readFile();
 
-	System.out.println(" ");
-		for(int i = 0; i < structures.length; i++)
+        CityBuilder oldStyleCity = new OldCityBuilder();
+
+        CityDirector cityDirector = new CityDirector(oldStyleCity);
+
+        cityDirector.makeCity(cityArray);
+
+        City firstCity = cityDirector.getCity();
+        
+        
+        ArrayList<ArrayList<Structure>> structures = new ArrayList<ArrayList<Structure>>();
+        structures = firstCity.getStructures();
+        
+        
+
+		for(int i = 0; i < structures.size(); i++)
 		{
-			for(int j = 0; j < structures[i].length; j++)
+			for(int j = 0; j < structures.get(i).size(); j++)
 			{
-				System.out.print(structures[i][j].getSymbol());
+				if(structures.get(i).get(j) != null)
+					System.out.print(structures.get(i).get(j).getSymbol() + " ");
+				else {
+					System.out.print("  ");
+				}
 			}
 			System.out.println();
 		}
@@ -25,20 +46,20 @@ public class Controller {
 		float totalEnergyCost = 0.0f;
 		float totalEnergyCostPerDay = 0f;
 
-		for(int i = 0; i < structures.length; i++)
+		for(int i = 0; i < structures.size(); i++)
 		{
-			for(int j = 0; j < structures[i].length; j++)
+			for(int j = 0; j < structures.get(i).size(); j++)
 			{
 
-				if(structures[i][j] instanceof Building)
+				if(structures.get(i).get(j) instanceof Building)
 				{
-					if(structures[i][i] instanceof House || structures[i][i] instanceof Apartment)
+					if(structures.get(i).get(j) instanceof House || structures.get(i).get(j) instanceof Apartment)
 					{
-						totalPop += structures[i][j].getResidents();
+						totalPop += structures.get(i).get(j).getResidents();
 					}
-					totalHeatCost += structures[i][j].getHeatingCostPerDay();
-					totalEnergyCost += structures[i][j].getEnergyCostPerDay();
-					totalEnergyCostPerDay += structures[i][j].getTotalCost();
+					totalHeatCost += structures.get(i).get(j).getHeatingCostPerDay();
+					totalEnergyCost += structures.get(i).get(j).getEnergyCostPerDay();
+					totalEnergyCostPerDay += structures.get(i).get(j).getTotalCost();
 				}
 			}
 		}
