@@ -1,9 +1,13 @@
 package City_Parts;
 
+import java.util.ArrayList;
+
+import Resource_Management.ResourceCost;
+
 public class Building extends Structure
 {
 	
-
+	private ArrayList<ResourceCost> resourceCosts;
 	
 	//Hours of Occupation
 	public int hoursOcc;
@@ -100,6 +104,16 @@ public class Building extends Structure
 		float energyCostPerDay = 0.0f;
 		energyCostPerDay = (hoursOcc * energyCost);
 		return energyCostPerDay;
+	}
+	
+	public void addResourceCost(ResourceCost resourceCost)
+	{
+		resourceCosts.add(resourceCost);
+	}
+	
+	public void removeResourceCost(ResourceCost resourceCost)
+	{
+		resourceCosts.remove(resourceCost);
 	}
 
 }
