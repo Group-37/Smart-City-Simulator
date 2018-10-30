@@ -1,6 +1,7 @@
 package Database_Controller;
 
 import java.util.ArrayList;
+import FileReadWrite.*;
 
 import City_Parts.Structure;
 
@@ -8,7 +9,9 @@ public class TestCityBuilder {
 
     public static void main(String [] args){
         
-        CRUD crud = new CRUD();
+    	IFile csFileReaderWriter = new CSFile();
+    	csFileReaderWriter.get("C:\\Users\\Chris Mulcahy\\Documents\\GitHub\\Smart-City-Again\\Smart-City-Simulator\\src\\Resources\\Map.txt");
+        CRUD crud = new CRUD(csFileReaderWriter);
     	String[][] cityArray = new String[0][0];
     	cityArray = crud.readFile();
 
