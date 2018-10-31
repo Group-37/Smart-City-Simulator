@@ -1,8 +1,8 @@
 package Database_Controller;
-public class OldCityBuilder implements CityBuilder {
+public class SmartCityBuilder implements CityBuilder {
     private City city;
 
-    public OldCityBuilder(){
+    public SmartCityBuilder(){
         this.city = new City();
     }
     @Override

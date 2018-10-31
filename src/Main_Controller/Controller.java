@@ -10,7 +10,7 @@ public class Controller {
 	public static void main(String [] args)
 	{
 		IFile fileReaderWriter = new CSFile();
-		fileReaderWriter.get("C:\\Users\\Neil Kiely\\Desktop\\CS4227\\Smart-City-Simulator\\src\\Resources\\Map.txt");
+		fileReaderWriter.get("C:\\Users\\15143929\\Documents\\SmartCity\\src\\Resources\\Map.txt");
 		 CRUD crud = new CRUD(fileReaderWriter);
     	String[][] cityArray = new String[0][0];
     	cityArray = crud.readFile();
@@ -21,13 +21,13 @@ public class Controller {
 
         cityDirector.makeCity(cityArray);
 
-        City firstCity = cityDirector.getCity();
+        City smartCity = cityDirector.getCity();
         
         Commander c1 = new Commander();
         
         
         ArrayList<ArrayList<Structure>> structures = new ArrayList<ArrayList<Structure>>();
-        structures = firstCity.getStructures();
+        structures = smartCity.getStructures();
         
         
 		CityDetails cityDetails = new CityDetails();

@@ -15,9 +15,9 @@ public class TestCityBuilder {
     	String[][] cityArray = new String[0][0];
     	cityArray = crud.readFile();
 
-        CityBuilder oldStyleCity = new OldCityBuilder();
+        CityBuilder smartStyleCity = new SmartCityBuilder();
 
-        CityDirector cityDirector = new CityDirector(oldStyleCity);
+        CityDirector cityDirector = new CityDirector(smartStyleCity);
 
         cityDirector.makeCity(cityArray);
 
