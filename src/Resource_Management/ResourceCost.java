@@ -9,8 +9,4 @@ public abstract class ResourceCost {
         this.hoursOccupied = hoursOccupied;
         this.numPeople = numPeople;
     }
-    
-    public abstract double calculateCost();
-    
-    public abstract String costInfo();
 }

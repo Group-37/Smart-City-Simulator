@@ -9,7 +9,7 @@ package Resource_Management;
  *
  * @author Chris Mulcahy
  */
-public class HighConsumerWater extends ResourceCost {
+public class HighConsumerWater extends ResourceCost implements WaterCost {
 
     public HighConsumerWater(double hoursOccupied, int numPeople) {
         super(hoursOccupied, numPeople);

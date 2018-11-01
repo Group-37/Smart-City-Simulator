@@ -1,15 +1,15 @@
 package Resource_Management;
 
-public class LowConsumerWater extends ResourceCost implements WaterCost {
+public class HeatCostGeneric extends ResourceCost implements HeatCost {
 
-    public LowConsumerWater(double hoursOccupied, int numPeople) {
+    public HeatCostGeneric(double hoursOccupied, int numPeople) {
         super(hoursOccupied, numPeople);
     }
 
     @Override
     public double calculateCost() {
-        double cost = hoursOccupied * 0.1;
-        cost = cost * (numPeople * 0.1);
+        double hoursValue = hoursOccupied * 0.3;
+        double cost = hoursValue * 4.25;
         return cost;
     }
 
@@ -17,5 +17,5 @@ public class LowConsumerWater extends ResourceCost implements WaterCost {
     public String costInfo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
