@@ -10,7 +10,7 @@ public class Controller {
 	public static void main(String [] args)
 	{
 		IFile fileReaderWriter = new CSFile();
-		fileReaderWriter.get("C:\\Users\\15143929\\Documents\\SmartCity\\src\\Resources\\Map.txt");
+		fileReaderWriter.get("src\\Resources\\Map.txt");
 		 CRUD crud = new CRUD(fileReaderWriter);
     	String[][] cityArray = new String[0][0];
     	cityArray = crud.readFile();
