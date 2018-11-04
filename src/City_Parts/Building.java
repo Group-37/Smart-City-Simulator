@@ -1,13 +1,15 @@
 package City_Parts;
 
-import java.util.ArrayList;
-
-import Resource_Management.ResourceCost;
+import Resource_Management.ElectricityCost;
+import Resource_Management.HeatCost;
+import Resource_Management.WaterCost;
 
 public class Building extends Structure
 {
 	
-	private ArrayList<ResourceCost> resourceCosts;
+	private WaterCost waterCosts;
+	private ElectricityCost electricityCosts;
+	private HeatCost heatCosts;
 	
 	//Hours of Occupation
 	public int hoursOcc;
@@ -86,7 +88,13 @@ public class Building extends Structure
 	public float getTotalCost()
 	{
 		float totalCost = 0.0f;
-		totalCost = (hoursOcc * energyCost) + (hoursOcc * heatingCost);
+		if (waterCosts != null)
+			totalCost += waterCosts.calculateCost();
+		if (electricityCosts != null)
+			totalCost += electricityCosts.calculateCost();
+		if (heatCosts != null)
+			totalCost += heatCosts.calculateCost();
+		//totalCost = (hoursOcc * energyCost) + (hoursOcc * heatingCost);
 		return totalCost;
 	}
 
@@ -106,14 +114,28 @@ public class Building extends Structure
 		return energyCostPerDay;
 	}
 	
-	public void addResourceCost(ResourceCost resourceCost)
-	{
-		resourceCosts.add(resourceCost);
+	public WaterCost getWaterCosts() {
+		return waterCosts;
 	}
-	
-	public void removeResourceCost(ResourceCost resourceCost)
-	{
-		resourceCosts.remove(resourceCost);
+
+	public void setWaterCosts(WaterCost waterCosts) {
+		this.waterCosts = waterCosts;
+	}
+
+	public ElectricityCost getElectricityCosts() {
+		return electricityCosts;
+	}
+
+	public void setElectricityCosts(ElectricityCost electricityCosts) {
+		this.electricityCosts = electricityCosts;
+	}
+
+	public HeatCost getHeatCosts() {
+		return heatCosts;
+	}
+
+	public void setHeatCosts(HeatCost heatCosts) {
+		this.heatCosts = heatCosts;
 	}
 
 }

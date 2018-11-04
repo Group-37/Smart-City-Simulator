@@ -1,6 +1,6 @@
 package Resource_Management;
 
-public interface ElectricityCost {
+public interface WaterCost {
 	public double calculateCost();
 	public String costInfo();
 }
