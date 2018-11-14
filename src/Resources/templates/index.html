@@ -1,9 +1,14 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src = "/indexScript.js"></script>
 <head> 
-    <title>Wat</title> 
+    <title>File Selection</title> 
 </head>
 <body>
-    <p>Also wat</p>
+  	<input type="text" name="filepath" id="filePath"></input>
+    <button onclick="continueSC()">Semi-Colon separated File</button>
+    <button onclick="continueCS()">Comma separated File</button>
+    <button onclick="continueTD()">Tab separated File</button>
 </body>
 </html>

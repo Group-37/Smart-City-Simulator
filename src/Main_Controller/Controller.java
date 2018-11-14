@@ -7,9 +7,16 @@ import java.util.ArrayList;
 import City_Parts.*;
 public class Controller {
 	
-	public Controller()
+	CRUD crud;
+	
+	public Controller(String fileType, String fileName)
 	{
-		
+		IFileFactory.addIFile("SCFile", new SCFile());
+		IFileFactory.addIFile("CSFile", new CSFile());
+		IFileFactory.addIFile("TDFile", new TDFile());
+		IFile fileReader = IFileFactory.getIFile(fileType);
+		fileReader.get(fileName);
+		crud = new CRUD(fileReader);
 	}
 	
 	public static void main(String [] args)
@@ -58,9 +65,6 @@ public class Controller {
 	
 	void run()
 	{
-		IFile fileReaderWriter = new CSFile();
-		fileReaderWriter.get("src\\Resources\\Map.txt");
-		CRUD crud = new CRUD(fileReaderWriter);
     	String[][] cityArray = new String[0][0];
     	cityArray = crud.readFile();
 
