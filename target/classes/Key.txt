@@ -1,8 +1,0 @@
-r = road
-h = house
-a = apartments
-f = factory
-p = power plant
-s = school
-g = Gardai
-+ = hospital

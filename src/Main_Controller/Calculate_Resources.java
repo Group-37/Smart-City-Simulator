@@ -68,6 +68,36 @@ public class Calculate_Resources {
 		}
 	}
 	
+	public String stringCity()
+	{
+		String returnString = "";
+		for(int i = 0; i < structures.size(); i++)
+		{
+			for(int j = 0; j < structures.get(i).size(); j++)
+			{
+				if(structures.get(i).get(j) != null)
+					returnString += (structures.get(i).get(j).getSymbol() + " ");
+				else {
+					returnString += "  ";
+				}
+			}
+			returnString += "\n";
+		}
+		return returnString;
+	}
+	
+	public String results()
+	{
+		String resultString = "";
+		resultString += "\nTotal population: " + cityDetails.getTotalPop() + "\n";
+		resultString += "Total cost of energy per day: " + cityDetails.getTotalEnergyCost() + "\n";
+		resultString += "Total cost of heat per day: " + cityDetails.getTotalHeatCost() + "\n";
+		resultString += "Total Cost per day: " + cityDetails.getTotalEnergyCostPerDay() + "\n";
+		int costPerYear = (int)cityDetails.getTotalEnergyCostPerDay() * 365;
+		resultString += "Total Cost per year: " + costPerYear + "\n";
+		return resultString;
+	}
+	
 	public CityDetails getCityDetails()
 	{
 		return cityDetails;

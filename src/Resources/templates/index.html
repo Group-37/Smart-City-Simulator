@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src = "/indexScript.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <head> 
     <title>File Selection</title> 
 </head>
@@ -10,5 +11,78 @@
     <button onclick="continueSC()">Semi-Colon separated File</button>
     <button onclick="continueCS()">Comma separated File</button>
     <button onclick="continueTD()">Tab separated File</button>
+    <button onclick="connect()">Connect</button>
+    <p id = "resultText"></p>
 </body>
+<script>
+function continueSC()
+{
+	var filePath = document.getElementById("filePath");
+	console.log(filePath.value);
+	$.ajax({
+		type: "POST",
+		url: "/SmartCitySimulator/continue",
+		data: filePath.value + "," + "SCFile",
+		success: function(msg){
+			var text = document.getElementById("resultText");
+			console.log(msg);
+			text.innerHTML += msg;
+		}
+	});
+}
+
+function continueCS()
+{
+	var filePath = document.getElementById("filePath");
+	console.log(filePath.value);
+	$.ajax({
+		type: "POST",
+		url: "/SmartCitySimulator/continue",
+		data: filePath.value + "," + "CSFile",
+		success: function(msg){
+			var text = document.getElementById("resultText");
+			console.log(msg);
+			text.innerHTML += msg;
+		}
+	});
+}
+
+function continueTD()
+{
+	var filePath = document.getElementById("filePath");
+	console.log(filePath.value);
+	$.ajax({
+		type: "POST",
+		url: "/SmartCitySimulator/continue",
+		data: filePath.value + "," + "TDFile",
+		success: function(msg){
+			var text = document.getElementById("resultText");
+			console.log(msg);
+			text.innerHTML += msg;
+		}
+	});
+}
+
+function testAdd()
+{
+	console.log("This!");
+}
+
+function connect() {
+	console.log("Gets in here!");
+    var socket = new SockJS('/gs-guide-websocket');
+    var stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+    	console.log("Connected!")
+        stompClient.subscribe('/topic/results', function (message) {
+            console.log(message.body);
+            var text = document.getElementById("resultText");
+            var newString = message.body.replace(/0/g, " ")
+            text.innerHTML += "<pre>" + newString + "</pre>";
+        });
+    });
+}
+
+connect();
+</script>
 </html>

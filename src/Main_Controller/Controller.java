@@ -8,6 +8,8 @@ import City_Parts.*;
 public class Controller {
 	
 	CRUD crud;
+	String cityDetailsString;
+	String cityResultsString;
 	
 	public Controller(String fileType, String fileName)
 	{
@@ -86,6 +88,7 @@ public class Controller {
 		CityDetails cityDetails = new CityDetails();
 		
 		Calculate_Resources calculateResources = new Calculate_Resources(structures, cityDetails);
+		cityDetailsString = calculateResources.stringCity();
 		Calculate_ResourcesPrintCityCommand cRPCC1 = new Calculate_ResourcesPrintCityCommand(calculateResources);
 		Calculate_ResourcesCommand cRC1 = new Calculate_ResourcesCommand(calculateResources);
 		
@@ -96,10 +99,22 @@ public class Controller {
 		
 		cityDetails = calculateResources.getCityDetails();
 		
+		cityResultsString = calculateResources.results();
+		
 		ShowDetails sD1 = new ShowDetails(cityDetails);
 		ShowDetailsCommand sDC1 = new ShowDetailsCommand(sD1);
 		
 		c1.setCommand(sDC1);
 		c1.doCommand();
+	}
+	
+	public String getDetails()
+	{
+		return cityDetailsString;
+	}
+	
+	public String getResults()
+	{
+		return cityResultsString;
 	}
 }
