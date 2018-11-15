@@ -37,11 +37,11 @@ public class Calculate_Resources {
 					}
 					Building building = (Building)structures.get(i).get(j);
 					if (building.getHeatCosts() != null)
-						totalHeatCost += building.getHeatCosts().calculateCost();
+						totalHeatCost += building.getHeatTotal();
 					if (building.getElectricityCosts() != null)
-						totalEnergyCost += building.getElectricityCosts().calculateCost();
+						totalEnergyCost += building.getElectricityTotal();
 					if (building.getWaterCosts() != null)
-						totalEnergyCost += building.getWaterCosts().calculateCost();
+						totalEnergyCost += building.getWaterTotal();
 					totalEnergyCostPerDay += structures.get(i).get(j).getTotalCost();
 				}
 			}
