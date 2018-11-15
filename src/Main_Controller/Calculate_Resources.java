@@ -6,6 +6,7 @@ import City_Parts.Apartment;
 import City_Parts.Building;
 import City_Parts.House;
 import City_Parts.Structure;
+import Main_Controller.Chain_Of_Responsibility.*;
 
 public class Calculate_Resources {
 	ArrayList<ArrayList<Structure>> structures;
@@ -24,32 +25,24 @@ public class Calculate_Resources {
 	
 	public void calculateTheResources()
 	{
-		for(int i = 0; i < structures.size(); i++)
-		{
-			for(int j = 0; j < structures.get(i).size(); j++)
-			{
-
-				if(structures.get(i).get(j) instanceof Building)
-				{
-					if(structures.get(i).get(j) instanceof House || structures.get(i).get(j) instanceof Apartment)
-					{
-						totalPop += structures.get(i).get(j).getResidents();
-					}
-					Building building = (Building)structures.get(i).get(j);
-					if (building.getHeatCosts() != null)
-						totalHeatCost += building.getHeatTotal();
-					if (building.getElectricityCosts() != null)
-						totalEnergyCost += building.getElectricityTotal();
-					if (building.getWaterCosts() != null)
-						totalEnergyCost += building.getWaterTotal();
-					totalEnergyCostPerDay += structures.get(i).get(j).getTotalCost();
-				}
-			}
-		}
-		cityDetails.setTotalPop(totalPop);
-		cityDetails.setTotalHeatCost(totalHeatCost);
-		cityDetails.setTotalEnergyCost(totalEnergyCost);
-		cityDetails.setTotalEnergyCostPerDay(totalEnergyCostPerDay);
+		Chain chainCalcHeat = new CalcTotalHeatCost();
+		Chain chainCalcPop = new CalcTotalPop();
+		Chain chainCalcEnergy = new CalcTotalEnergyCost();
+		Chain chainCalcEnergyPerDay = new CalcTotalEnergyCostPerDay();
+		
+		chainCalcHeat.setNextChain(chainCalcPop);
+		chainCalcPop.setNextChain(chainCalcEnergy);
+		chainCalcEnergy.setNextChain(chainCalcEnergyPerDay);
+		
+		StructureCalculation totalPopCalc = new StructureCalculation(structures, "pop");
+		StructureCalculation totalHeatCostCalc = new StructureCalculation(structures, "heat");
+		StructureCalculation totalEnergyCostCalc = new StructureCalculation(structures, "energy");
+		StructureCalculation totalEnergyCostPerDayCalc = new StructureCalculation(structures, "energyPerDay");
+		
+		cityDetails.setTotalPop((int)chainCalcHeat.calculate(totalPopCalc));
+		cityDetails.setTotalHeatCost(chainCalcHeat.calculate(totalHeatCostCalc));
+		cityDetails.setTotalEnergyCost(chainCalcHeat.calculate(totalEnergyCostCalc));
+		cityDetails.setTotalEnergyCostPerDay(chainCalcHeat.calculate(totalEnergyCostPerDayCalc));
 	}
 	
 	public void printTheCity()
