@@ -11,7 +11,7 @@
     <button onclick="continueSC()">Semi-Colon separated File</button>
     <button onclick="continueCS()">Comma separated File</button>
     <button onclick="continueTD()">Tab separated File</button>
-    <button onclick="connect()">Connect</button>
+    <button onclick="displayResults()" id = "displayAfterLoad" style = "display:none">Display Results</button>
     <p id = "resultText"></p>
 </body>
 <script>
@@ -63,9 +63,18 @@ function continueTD()
 	});
 }
 
-function testAdd()
+function displayResults()
 {
-	console.log("This!");
+	$.ajax({
+		type: "POST",
+		url: "/SmartCitySimulator/results",
+		data: "don't matter",
+		success: function(msg){
+			var text = document.getElementById("resultText");
+			console.log(msg);
+			text.innerHTML += msg;
+		}
+	});
 }
 
 function connect() {
@@ -76,8 +85,15 @@ function connect() {
     	console.log("Connected!")
         stompClient.subscribe('/topic/results', function (message) {
             console.log(message.body);
+            var originalText = message.body;
+            if (message.body.includes("Success:"))
+            {
+            	originalText = message.body.substring(("Success:").length, message.body.length);
+            	var buttonForProgress = document.getElementById("displayAfterLoad");
+            	buttonForProgress.style.display = "block";
+            }
             var text = document.getElementById("resultText");
-            var newString = message.body.replace(/0/g, " ")
+            var newString = originalText.replace(/0/g, " ");
             text.innerHTML += "<pre>" + newString + "</pre>";
         });
     });

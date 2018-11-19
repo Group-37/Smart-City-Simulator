@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 @RequestMapping("/SmartCitySimulator")
 public class WebController {
 	
+	Main_Controller.Controller controller;
+	
 	@Autowired
     private SimpMessagingTemplate template;
 	
@@ -23,27 +25,28 @@ public class WebController {
 	
 	@RequestMapping(value="/continue" ,method = RequestMethod.POST)
 	@ResponseBody
-	public String results(@RequestBody String response)
+	public String display(@RequestBody String response)
 	{
+		System.out.println("Has to");
 		response = response.replace("%2C", ",");
 		response = response.replace("%5C", "/");
 		response = response.replace("%2F", "/");
 		response = response.replaceAll("=", "");
 		String [] splitByComma = response.split(",");
-		Main_Controller.Controller controller = new Main_Controller.Controller(splitByComma[1], splitByComma[0]);
-		controller.run();
-		System.out.println("<------------------------------->");
-		System.out.println(controller.getDetails());
-		System.out.println("<------------------------------->");
-		/*
-		String [] splitByLine = controller.getDetails().split("\n");
-		for (int i = 0; i < splitByLine.length; i++)
-		{
-			splitByLine[i] = splitByLine[i].replaceAll(" ", "0");
-			template.convertAndSend("/topic/results", splitByLine[i]);
-		}
-		*/
-		template.convertAndSend("/topic/results", controller.getDetails());
+		controller = new Main_Controller.Controller(splitByComma[1], splitByComma[0]);
+		controller.cityDetails();
+		if (!controller.getDetails().isEmpty())
+			template.convertAndSend("/topic/results", "Success:" + controller.getDetails());
+		else
+			template.convertAndSend("/topic/results", "There has been an error parsing the file:\nPlease check the filepath is real or the file type is correct.");
+		//template.convertAndSend("/topic/results", controller.getResults());
+		return "";
+	}
+	
+	@RequestMapping(value="/results" , method = RequestMethod.POST)
+	public String results()
+	{
+		controller.cityResults();
 		template.convertAndSend("/topic/results", controller.getResults());
 		return "";
 	}

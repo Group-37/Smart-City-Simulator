@@ -94,36 +94,41 @@ public class CRUD {
 		return structures;
                 */
             String [][] fileContent = fileReaderWriter.read();
-            structures = new Structure [fileContent.length][fileContent[0].length];
-            int count = 0;
-            for (int i = 0; i < fileContent.length; i++)
+            if (fileContent != null)
             {
-                for (int j = 0; j < fileContent[i].length; j++)
-                {
-                    if(fileContent[i][j].equalsIgnoreCase("r"))
-                        structures[count][j] = new Roads();
-                    else if(fileContent[i][j].equalsIgnoreCase("h"))
-			structures[count][j] = new House();
-                    else if(fileContent[i][j].equalsIgnoreCase("a"))
-			structures[count][j] = new Apartment();
-                    else if(fileContent[i][j].equalsIgnoreCase("f"))
-			structures[count][j] = new Factory();
-                    else if(fileContent[i][j].equalsIgnoreCase("p"))
-                        structures[count][j] = new PowerPlant();
-                    else if(fileContent[i][j].equalsIgnoreCase("s"))
-                        structures[count][j] = new School();
-                    else if(fileContent[i][j].equalsIgnoreCase("g"))
-                        structures[count][j] = new GardaStation();
-                    else if(fileContent[i][j].equalsIgnoreCase("+"))
-                        structures[count][j] = new Hospital();
-                    else if(fileContent[i][j].equalsIgnoreCase("0"))
-                        structures[count][j] = new Structure();
-                    else
-                        structures[count][j] = new Structure();
-                }
-                count++;
+	            structures = new Structure [fileContent.length][fileContent[0].length];
+	            int count = 0;
+	            for (int i = 0; i < fileContent.length; i++)
+	            {
+	                for (int j = 0; j < fileContent[i].length; j++)
+	                {
+	                    if(fileContent[i][j].equalsIgnoreCase("r"))
+	                        structures[count][j] = new Roads();
+	                    else if(fileContent[i][j].equalsIgnoreCase("h"))
+				structures[count][j] = new House();
+	                    else if(fileContent[i][j].equalsIgnoreCase("a"))
+				structures[count][j] = new Apartment();
+	                    else if(fileContent[i][j].equalsIgnoreCase("f"))
+				structures[count][j] = new Factory();
+	                    else if(fileContent[i][j].equalsIgnoreCase("p"))
+	                        structures[count][j] = new PowerPlant();
+	                    else if(fileContent[i][j].equalsIgnoreCase("s"))
+	                        structures[count][j] = new School();
+	                    else if(fileContent[i][j].equalsIgnoreCase("g"))
+	                        structures[count][j] = new GardaStation();
+	                    else if(fileContent[i][j].equalsIgnoreCase("+"))
+	                        structures[count][j] = new Hospital();
+	                    else if(fileContent[i][j].equalsIgnoreCase("0"))
+	                        structures[count][j] = new Structure();
+	                    else
+	                        structures[count][j] = new Structure();
+	                }
+	                count++;
+	            }
+	            System.out.println(fileContent);
+	            return fileContent;
             }
-            return fileContent;
+            return null;
 	}
         
         public void saveFile()
