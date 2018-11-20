@@ -83,7 +83,7 @@ function connect() {
     var stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
     	console.log("Connected!")
-        stompClient.subscribe('/topic/results', function (message) {
+        stompClient.subscribe('/results', function (message) {
             console.log(message.body);
             var originalText = message.body;
             if (message.body.includes("Success:"))

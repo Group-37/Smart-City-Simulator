@@ -4,16 +4,15 @@ import java.io.File;
 import java.util.Scanner;
 import FileReadWrite.IFile;
 //import Resources.*;
-public class CRUD {
+public class CRUD extends AbstractCRUD {
 	
 	private Scanner x;
-	private IFile fileReaderWriter;
         private Structure [][] structures = null;
         private String[][] map;
         
         public CRUD(IFile fileReaderWriter)
         {
-            this.fileReaderWriter = fileReaderWriter;
+            super(fileReaderWriter);
         }
 
         public void setFileReaderWriter(IFile fileReaderWriter)
@@ -54,7 +53,8 @@ public class CRUD {
                 this.fileReaderWriter.write(output);
             }
         }
-                
+    
+        @Override          
 	public String[][] readFile()
 	{
 		/*
@@ -130,7 +130,7 @@ public class CRUD {
             }
             return null;
 	}
-        
+        @Override
         public void saveFile()
         {
             if (structures != null)
@@ -156,6 +156,7 @@ public class CRUD {
             }
         }
         
+        @Override
         public void printContent()
         {
             for (int i = 0; i < structures.length; i++)

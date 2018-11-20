@@ -1,4 +1,4 @@
-package Main_Controller;
+package UI;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +27,6 @@ public class WebController {
 	@ResponseBody
 	public String display(@RequestBody String response)
 	{
-		System.out.println("Has to");
 		response = response.replace("%2C", ",");
 		response = response.replace("%5C", "/");
 		response = response.replace("%2F", "/");
@@ -36,9 +35,9 @@ public class WebController {
 		controller = new Main_Controller.Controller(splitByComma[1], splitByComma[0]);
 		controller.cityDetails();
 		if (!controller.getDetails().isEmpty())
-			template.convertAndSend("/topic/results", "Success:" + controller.getDetails());
+			template.convertAndSend("/results", "Success:" + controller.getDetails());
 		else
-			template.convertAndSend("/topic/results", "There has been an error parsing the file:\nPlease check the filepath is real or the file type is correct.");
+			template.convertAndSend("/results", "There has been an error parsing the file:\nPlease check the filepath is real or the file type is correct.");
 		//template.convertAndSend("/topic/results", controller.getResults());
 		return "";
 	}
@@ -47,7 +46,7 @@ public class WebController {
 	public String results()
 	{
 		controller.cityResults();
-		template.convertAndSend("/topic/results", controller.getResults());
+		template.convertAndSend("/results", controller.getResults());
 		return "";
 	}
 }

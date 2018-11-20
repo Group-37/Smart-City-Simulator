@@ -67,7 +67,7 @@ public class Controller {
 
 	}
 	
-	void cityDetails()
+	public void cityDetails()
 	{
     	String[][] cityArray = new String[0][0];
     	cityArray = crud.readFile();
@@ -103,7 +103,7 @@ public class Controller {
     	}
 	}
 	
-	void cityResults()
+	public void cityResults()
 	{
 		Commander c1 = new Commander();
 		Calculate_ResourcesPrintCityCommand cRPCC1 = new Calculate_ResourcesPrintCityCommand(calculateResources);
