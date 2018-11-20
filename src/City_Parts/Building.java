@@ -1,16 +1,16 @@
 package City_Parts;
 
-import Resource_Management.ElectricityCost;
-import Resource_Management.HeatCost;
-import Resource_Management.WaterCost;
+import Resource_Management.*;
 
 public class Building extends Structure
 {
 	
-	private WaterCost waterCosts;
-	private ElectricityCost electricityCosts;
-	private HeatCost heatCosts;
+	private Water waterCosts;
+	private Electricity electricityCosts;
+	private Heat heatCosts;
 	
+	
+    float totalCost;
 	//Hours of Occupation
 	public int hoursOcc;
 	//Energy Consumption per Hour
@@ -22,6 +22,10 @@ public class Building extends Structure
 	//U-Value
 	public float uValue;
 
+	public float electricityTotal;
+	public float waterTotal;
+	public float heatTotal;
+	
 	public Building() {
 
 	}
@@ -87,14 +91,6 @@ public class Building extends Structure
 	@Override
 	public float getTotalCost()
 	{
-		float totalCost = 0.0f;
-		if (waterCosts != null)
-			totalCost += waterCosts.calculateCost();
-		if (electricityCosts != null)
-			totalCost += electricityCosts.calculateCost();
-		if (heatCosts != null)
-			totalCost += heatCosts.calculateCost();
-		//totalCost = (hoursOcc * energyCost) + (hoursOcc * heatingCost);
 		return totalCost;
 	}
 
@@ -114,28 +110,68 @@ public class Building extends Structure
 		return energyCostPerDay;
 	}
 	
-	public WaterCost getWaterCosts() {
+	public Water getWaterCosts() {
 		return waterCosts;
 	}
 
-	public void setWaterCosts(WaterCost waterCosts) {
+	public void setWaterCosts(Water waterCosts) {
 		this.waterCosts = waterCosts;
 	}
 
-	public ElectricityCost getElectricityCosts() {
+	public Electricity getElectricityCosts() {
 		return electricityCosts;
 	}
 
-	public void setElectricityCosts(ElectricityCost electricityCosts) {
+	public void setElectricityCosts(Electricity electricityCosts) {
 		this.electricityCosts = electricityCosts;
 	}
 
-	public HeatCost getHeatCosts() {
+	public Heat getHeatCosts() {
 		return heatCosts;
 	}
 
-	public void setHeatCosts(HeatCost heatCosts) {
+	public void setHeatCosts(Heat heatCosts) {
 		this.heatCosts = heatCosts;
 	}
+	
+	public void setTotalCost()
+	{
+		if (waterCosts != null)	
+			totalCost += waterTotal;
+		if (electricityCosts != null)
+			totalCost += electricityTotal;
+		if (heatCosts != null)
+			totalCost += heatTotal;
+		//totalCost = (hoursOcc * energyCost) + (hoursOcc * heatingCost);
+	}
+	
+	public void setElectricityTotal(Visitor visitor)
+	{
+		electricityTotal = electricityCosts.accept(visitor);
+	}
 
+	public void setWaterTotal(Visitor visitor)
+	{
+		waterTotal = waterCosts.accept(visitor);
+	}
+	
+	public void setHeatTotal(Visitor visitor)
+	{
+		heatTotal = heatCosts.accept(visitor);
+	}
+	
+	public double getElectricityTotal()
+	{
+		return electricityTotal;
+	}
+
+	public double getWaterTotal()
+	{
+		return waterTotal;
+	}
+	
+	public double getHeatTotal()
+	{
+		return heatTotal;
+	}
 }
