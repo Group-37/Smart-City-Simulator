@@ -18,6 +18,7 @@ public class Controller {
 		IFileFactory.addIFile("SCFile", new SCFile());
 		IFileFactory.addIFile("CSFile", new CSFile());
 		IFileFactory.addIFile("TDFile", new TDFile());
+		IFileFactory.addIFile("DBFile", new DBFile());
 		IFile fileReader = IFileFactory.getIFile(fileType);
 		fileReader.get(fileName);
 		crud = new CRUD(fileReader);

@@ -4,6 +4,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import Database_Controller.CRUD;
+import FileReadWrite.CSFile;
+import FileReadWrite.DBFile;
+import FileReadWrite.IFile;
+import Main_Controller.StructureDatabaseRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
@@ -16,6 +23,9 @@ public class WebController {
 	
 	@Autowired
     private SimpMessagingTemplate template;
+	
+	@Autowired
+	private StructureDatabaseRepository repository;
 	
 	@RequestMapping("/index")
 	public String run()
@@ -48,5 +58,18 @@ public class WebController {
 		controller.cityResults();
 		template.convertAndSend("/results", controller.getResults());
 		return "";
+	}
+	
+	@RequestMapping("saveAll")
+	@ResponseBody
+	public String saveAll()
+	{
+		IFile fileReaderWriter = new DBFile();
+		fileReaderWriter.get("src/Resources/map.txt");
+		CRUD crud = new CRUD(fileReaderWriter);
+		String [][] files = crud.readFile();
+		//crud.setFileReaderWriter(new DBFile());
+		//crud.saveFile();
+		return "Worked!";
 	}
 }

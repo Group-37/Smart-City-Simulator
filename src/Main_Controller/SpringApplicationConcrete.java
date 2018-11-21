@@ -8,9 +8,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan("UI")
+@EnableJpaRepositories 
+@ComponentScan(basePackages = {"UI", "Main_Controller"})
+@PropertySource("classpath:application.properties")
 public class SpringApplicationConcrete {
 
     public static void main(String[] args) {
