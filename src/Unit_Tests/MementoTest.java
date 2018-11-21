@@ -10,10 +10,10 @@ import org.junit.Test;
 
 import City_Parts.Structure;
 import Database_Controller.CRUD;
-import Database_Controller.City;
-import Database_Controller.CityBuilder;
-import Database_Controller.CityDirector;
-import Database_Controller.SmartCityBuilder;
+import Database_Controller.City_Builder.City;
+import Database_Controller.City_Builder.CityBuilder;
+import Database_Controller.City_Builder.CityDirector;
+import Database_Controller.City_Builder.SmartCityBuilder;
 import FileReadWrite.CSFile;
 import FileReadWrite.IFile;
 import Main_Controller.Calculate_Resources;
