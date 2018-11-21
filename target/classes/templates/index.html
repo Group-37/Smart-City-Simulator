@@ -11,6 +11,7 @@
     <button onclick="continueSC()">Semi-Colon separated File</button>
     <button onclick="continueCS()">Comma separated File</button>
     <button onclick="continueTD()">Tab separated File</button>
+    <button onclick="continueDB()">Database</button>
     <button onclick="displayResults()" id = "displayAfterLoad" style = "display:none">Display Results</button>
     <p id = "resultText"></p>
 </body>
@@ -55,6 +56,22 @@ function continueTD()
 		type: "POST",
 		url: "/SmartCitySimulator/continue",
 		data: filePath.value + "," + "TDFile",
+		success: function(msg){
+			var text = document.getElementById("resultText");
+			console.log(msg);
+			text.innerHTML += msg;
+		}
+	});
+}
+
+function continueDB()
+{
+	var filePath = document.getElementById("filePath");
+	console.log(filePath.value);
+	$.ajax({
+		type: "POST",
+		url: "/SmartCitySimulator/continue",
+		data: filePath.value + "," + "DBFile",
 		success: function(msg){
 			var text = document.getElementById("resultText");
 			console.log(msg);
