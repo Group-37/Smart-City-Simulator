@@ -1,19 +1,39 @@
-package Main_Controller;
-import Database_Controller.*;
-import FileReadWrite.*;
+package Unit_Tests;
+
+import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 import java.util.ArrayList;
-import City_Parts.*;
-import FileReadWrite.*;
+
+import org.junit.Test;
+
+import City_Parts.Structure;
+import Database_Controller.CRUD;
+import Database_Controller.City;
+import Database_Controller.CityBuilder;
+import Database_Controller.CityDirector;
+import Database_Controller.SmartCityBuilder;
+import FileReadWrite.CSFile;
+import FileReadWrite.IFile;
+import Main_Controller.Calculate_Resources;
+import Main_Controller.Calculate_ResourcesCommand;
+import Main_Controller.Calculate_ResourcesPrintCityCommand;
+import Main_Controller.CityDetails;
+import Main_Controller.Commander;
+import Main_Controller.ShowDetails;
+import Main_Controller.ShowDetailsCommand;
+import Main_Controller.Memento.Caretaker;
+import Main_Controller.Memento.Originator;
+
 public class MementoTest {
-	
+
 	static Caretaker caretaker = new Caretaker();
 	static Originator originator = new Originator();
 	static int savedCities = -1, currentCity = -1;
 	
-	
-	public static void main(String [] args)
-	{
-		
+	@Test
+	public void test() {
 		IFile fileReaderWriter = new CSFile();
 		fileReaderWriter.get("src\\Resources\\Map.txt");
 		CRUD crud = new CRUD(fileReaderWriter);
@@ -36,15 +56,21 @@ public class MementoTest {
 	    
 	    saveCity(smartCity);
 	    
+	    assertEquals(0, smartCity.getStructures().size());
+	    
 	    printInfo(smartCity);
 	    
 	    smartCity = undo(smartCity);
 	    
 	    printInfo(smartCity);
 	    
+	    assertNotEquals(0, smartCity.getStructures().size());
+	    
 	    smartCity = redo(smartCity);
 	    
 	    printInfo(smartCity);
+	    
+	    assertEquals(0, smartCity.getStructures().size());
 	}
 	
 	public static void saveCity(City c)
@@ -54,6 +80,7 @@ public class MementoTest {
 		
 		savedCities++;
 		currentCity++;
+		
 	}
 	
 	public static City undo(City c)
@@ -82,10 +109,8 @@ public class MementoTest {
 	{
 		Commander c1 = new Commander();
         
-        
         ArrayList<ArrayList<Structure>> structures = new ArrayList<ArrayList<Structure>>();
         structures = c.getStructures();
-        
         
 		CityDetails cityDetails = new CityDetails();
 		
