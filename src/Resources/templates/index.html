@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<head> 
+    <title>File Selection</title> 
+</head>
+<body>
+  	<input type="text" name="filepath" id="filePath"></input>
+    <button onclick="continueSC()">Semi-Colon separated File</button>
+    <button onclick="continueCS()">Comma separated File</button>
+    <button onclick="continueTD()">Tab separated File</button>
+    <button onclick="continueDB()">Database</button>
+    <button onclick="displayResults()" id = "displayAfterLoad" style = "display:none">Display Results</button>
+    <p id = "resultText"></p>
+</body>
+<script>
+function continueSC()
+{
+	var filePath = document.getElementById("filePath");
+	console.log(filePath.value);
+	$.ajax({
+		type: "POST",
+		url: "/SmartCitySimulator/continue",
+		data: filePath.value + "," + "SCFile",
+		success: function(msg){
+			var text = document.getElementById("resultText");
+			console.log(msg);
+			text.innerHTML += msg;
+		}
+	});
+}
+
+function continueCS()
+{
+	var filePath = document.getElementById("filePath");
+	console.log(filePath.value);
+	$.ajax({
+		type: "POST",
+		url: "/SmartCitySimulator/continue",
+		data: filePath.value + "," + "CSFile",
+		success: function(msg){
+			var text = document.getElementById("resultText");
+			console.log(msg);
+			text.innerHTML += msg;
+		}
+	});
+}
+
+function continueTD()
+{
+	var filePath = document.getElementById("filePath");
+	console.log(filePath.value);
+	$.ajax({
+		type: "POST",
+		url: "/SmartCitySimulator/continue",
+		data: filePath.value + "," + "TDFile",
+		success: function(msg){
+			var text = document.getElementById("resultText");
+			console.log(msg);
+			text.innerHTML += msg;
+		}
+	});
+}
+
+function continueDB()
+{
+	var filePath = document.getElementById("filePath");
+	console.log(filePath.value);
+	$.ajax({
+		type: "POST",
+		url: "/SmartCitySimulator/continue",
+		data: filePath.value + "," + "DBFile",
+		success: function(msg){
+			var text = document.getElementById("resultText");
+			console.log(msg);
+			text.innerHTML += msg;
+		}
+	});
+}
+
+function displayResults()
+{
+	$.ajax({
+		type: "POST",
+		url: "/SmartCitySimulator/results",
+		data: "don't matter",
+		success: function(msg){
+			var text = document.getElementById("resultText");
+			console.log(msg);
+			text.innerHTML += msg;
+		}
+	});
+}
+
+function connect() {
+	console.log("Gets in here!");
+    var socket = new SockJS('/gs-guide-websocket');
+    var stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+    	console.log("Connected!")
+        stompClient.subscribe('/results', function (message) {
+            console.log(message.body);
+            var originalText = message.body;
+            if (message.body.includes("Success:"))
+            {
+            	originalText = message.body.substring(("Success:").length, message.body.length);
+            	var buttonForProgress = document.getElementById("displayAfterLoad");
+            	buttonForProgress.style.display = "block";
+            }
+            var text = document.getElementById("resultText");
+            var newString = originalText.replace(/0/g, " ");
+            text.innerHTML += "<pre>" + newString + "</pre>";
+        });
+    });
+}
+
+connect();
+</script>
+</html>

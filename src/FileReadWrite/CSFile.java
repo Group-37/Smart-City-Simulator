@@ -44,35 +44,38 @@ public class CSFile implements IFile {
         int numRows = 0;
         int numColumns = 0;
         String line = "";
-        while (in.hasNextLine())
+        if (newFile.exists())
         {
-            line = in.nextLine();
-            if (!line.isEmpty())
-            {
-                numRows++;
-                //finding largest number of columns and using for init
-                int thisNumColumns = line.split(delimiter).length;
-                if (thisNumColumns > numColumns)
-                    numColumns = thisNumColumns;
-            }
+	        while (in.hasNextLine())
+	        {
+	            line = in.nextLine();
+	            if (!line.isEmpty())
+	            {
+	                numRows++;
+	                //finding largest number of columns and using for init
+	                int thisNumColumns = line.split(delimiter).length;
+	                if (thisNumColumns > numColumns)
+	                    numColumns = thisNumColumns;
+	            }
+	        }
+	        try {
+	            in = new Scanner(newFile);
+	        } catch (FileNotFoundException ex) {
+	            Logger.getLogger(SCFile.class.getName()).log(Level.SEVERE, null, ex);
+	        }
+	        if (numRows != 0)
+	        {
+	            returnString = new String[numRows][numColumns];
+	            for (int i = 0; i < numRows;i++ )
+	            {
+	                line = in.nextLine();
+	                returnString[i] = line.split(delimiter);
+	            }
+	            in.close();
+	            return returnString;
+	        }
+	        in.close();
         }
-        try {
-            in = new Scanner(newFile);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SCFile.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (numRows != 0)
-        {
-            returnString = new String[numRows][numColumns];
-            for (int i = 0; i < numRows;i++ )
-            {
-                line = in.nextLine();
-                returnString[i] = line.split(delimiter);
-            }
-            in.close();
-            return returnString;
-        }
-        in.close();
         return null;
     }
 

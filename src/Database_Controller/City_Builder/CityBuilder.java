@@ -1,4 +1,4 @@
-package Database_Controller;
+package Database_Controller.City_Builder;
 public interface  CityBuilder{
 
     public void buildCityApartment(int i, int j);
