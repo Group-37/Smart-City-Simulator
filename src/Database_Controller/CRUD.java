@@ -4,15 +4,16 @@ import java.io.File;
 import java.util.Scanner;
 import FileReadWrite.IFile;
 //import Resources.*;
-public class CRUD extends AbstractCRUD {
+public class CRUD {
 	
 	private Scanner x;
+	private IFile fileReaderWriter;
         private Structure [][] structures = null;
         private String[][] map;
         
         public CRUD(IFile fileReaderWriter)
         {
-            super(fileReaderWriter);
+            this.fileReaderWriter = fileReaderWriter;
         }
 
         public void setFileReaderWriter(IFile fileReaderWriter)
@@ -53,8 +54,7 @@ public class CRUD extends AbstractCRUD {
                 this.fileReaderWriter.write(output);
             }
         }
-    
-        @Override          
+                
 	public String[][] readFile()
 	{
 		/*
@@ -94,43 +94,38 @@ public class CRUD extends AbstractCRUD {
 		return structures;
                 */
             String [][] fileContent = fileReaderWriter.read();
-            if (fileContent != null)
+            structures = new Structure [fileContent.length][fileContent[0].length];
+            int count = 0;
+            for (int i = 0; i < fileContent.length; i++)
             {
-	            structures = new Structure [fileContent.length][fileContent[0].length];
-	            int count = 0;
-	            for (int i = 0; i < fileContent.length; i++)
-	            {
-	                for (int j = 0; j < fileContent[i].length; j++)
-	                {
-	                    if(fileContent[i][j].equalsIgnoreCase("r"))
-	                        structures[count][j] = new Roads();
-	                    else if(fileContent[i][j].equalsIgnoreCase("h"))
-				structures[count][j] = new House();
-	                    else if(fileContent[i][j].equalsIgnoreCase("a"))
-				structures[count][j] = new Apartment();
-	                    else if(fileContent[i][j].equalsIgnoreCase("f"))
-				structures[count][j] = new Factory();
-	                    else if(fileContent[i][j].equalsIgnoreCase("p"))
-	                        structures[count][j] = new PowerPlant();
-	                    else if(fileContent[i][j].equalsIgnoreCase("s"))
-	                        structures[count][j] = new School();
-	                    else if(fileContent[i][j].equalsIgnoreCase("g"))
-	                        structures[count][j] = new GardaStation();
-	                    else if(fileContent[i][j].equalsIgnoreCase("+"))
-	                        structures[count][j] = new Hospital();
-	                    else if(fileContent[i][j].equalsIgnoreCase("0"))
-	                        structures[count][j] = new Structure();
-	                    else
-	                        structures[count][j] = new Structure();
-	                }
-	                count++;
-	            }
-	            System.out.println(fileContent);
-	            return fileContent;
+                for (int j = 0; j < fileContent[i].length; j++)
+                {
+                    if(fileContent[i][j].equalsIgnoreCase("r"))
+                        structures[count][j] = new Roads();
+                    else if(fileContent[i][j].equalsIgnoreCase("h"))
+			structures[count][j] = new House();
+                    else if(fileContent[i][j].equalsIgnoreCase("a"))
+			structures[count][j] = new Apartment();
+                    else if(fileContent[i][j].equalsIgnoreCase("f"))
+			structures[count][j] = new Factory();
+                    else if(fileContent[i][j].equalsIgnoreCase("p"))
+                        structures[count][j] = new PowerPlant();
+                    else if(fileContent[i][j].equalsIgnoreCase("s"))
+                        structures[count][j] = new School();
+                    else if(fileContent[i][j].equalsIgnoreCase("g"))
+                        structures[count][j] = new GardaStation();
+                    else if(fileContent[i][j].equalsIgnoreCase("+"))
+                        structures[count][j] = new Hospital();
+                    else if(fileContent[i][j].equalsIgnoreCase("0"))
+                        structures[count][j] = new Structure();
+                    else
+                        structures[count][j] = new Structure();
+                }
+                count++;
             }
-            return null;
+            return fileContent;
 	}
-        @Override
+        
         public void saveFile()
         {
             if (structures != null)
@@ -156,7 +151,6 @@ public class CRUD extends AbstractCRUD {
             }
         }
         
-        @Override
         public void printContent()
         {
             for (int i = 0; i < structures.length; i++)
